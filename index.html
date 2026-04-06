@@ -1,1130 +1,757 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ritesh Solanki — QA Engineering Leader</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ritesh Solanki | QA Engineering Leader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
 
-  :root {
-    --bg: #080b10;
-    --bg2: #0d1117;
-    --bg3: #111820;
-    --surface: #151d27;
-    --border: #1e2d3d;
-    --accent: #f0a500;
-    --accent2: #ff6b35;
-    --text: #e8edf3;
-    --muted: #6b7f93;
-    --faint: #1a2535;
-  }
+        /* ── Glow background ── */
+        .glow-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% -20%, #1e293b 0%, #050505 80%);
+            z-index: -1;
+        }
 
-  html { scroll-behavior: smooth; }
+        /* ── Glass cards ── */
+        .glass-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+        }
+        .glass-card:hover {
+            border: 1px solid rgba(56,189,248,0.3);
+            transform: translateY(-8px);
+            background: rgba(255,255,255,0.05);
+            box-shadow: 0 24px 60px rgba(56,189,248,0.07);
+        }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
+        /* ── Gradient text ── */
+        .gradient-text {
+            background: linear-gradient(to right, #38bdf8, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gradient-text-green {
+            background: linear-gradient(to right, #34d399, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-  /* ── NOISE OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-  }
+        /* ── Nav links ── */
+        .nav-link {
+            transition: color 0.3s ease;
+            position: relative;
+            text-decoration: none;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0; height: 2px;
+            bottom: -4px; left: 0;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link:hover { color: #fff !important; }
 
-  /* ── SCROLLBAR ── */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+        /* ── Scroll ── */
+        html { scroll-behavior: smooth; }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.2rem 5%;
-    background: rgba(8,11,16,0.85);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(240,165,0,0.08);
-    transition: padding 0.3s;
-  }
+        /* ── Animations ── */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+        @keyframes pulse-dot {
+            0%,100% { opacity: 1; transform: scale(1); }
+            50%      { opacity: 0.4; transform: scale(0.8); }
+        }
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+        @keyframes float {
+            0%,100% { transform: translateY(0px); }
+            50%      { transform: translateY(-10px); }
+        }
+        @keyframes glow-pulse {
+            0%,100% { opacity: 0.4; }
+            50%      { opacity: 0.8; }
+        }
 
-  .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 1.25rem;
-    letter-spacing: -0.02em;
-    color: var(--text);
-    text-decoration: none;
-  }
-  .nav-logo span { color: var(--accent); }
+        .anim-1 { animation: fadeInUp 0.8s ease both; }
+        .anim-2 { animation: fadeInUp 0.8s 0.15s ease both; }
+        .anim-3 { animation: fadeInUp 0.8s 0.3s ease both; }
+        .anim-4 { animation: fadeInUp 0.8s 0.45s ease both; }
 
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
-  .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.875rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-    position: relative;
-  }
-  .nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -4px; left: 0;
-    width: 0; height: 1px;
-    background: var(--accent);
-    transition: width 0.3s;
-  }
-  .nav-links a:hover { color: var(--accent); }
-  .nav-links a:hover::after { width: 100%; }
+        /* ── Marquee ── */
+        .marquee-track {
+            display: flex; gap: 48px; width: max-content;
+            animation: marquee 25s linear infinite;
+        }
+        .marquee-track:hover { animation-play-state: paused; }
 
-  .nav-cta {
-    background: var(--accent);
-    color: #000 !important;
-    padding: 0.5rem 1.25rem;
-    border-radius: 4px;
-    font-weight: 600 !important;
-    letter-spacing: 0.02em !important;
-  }
-  .nav-cta::after { display: none !important; }
-  .nav-cta:hover { background: #ffc234 !important; color: #000 !important; }
+        /* ── Timeline ── */
+        .timeline-line {
+            position: absolute;
+            left: 0; top: 28px; bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, rgba(56,189,248,0.5), transparent);
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -5px; top: 22px;
+            width: 11px; height: 11px;
+            border-radius: 50%;
+            background: #38bdf8;
+            box-shadow: 0 0 12px rgba(56,189,248,0.8);
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 32px;
+            transition: all 0.3s;
+        }
+        .timeline-item:hover .timeline-title { color: #38bdf8; }
 
-  /* ── HERO ── */
-  #home {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 8rem 5% 4rem;
-    position: relative;
-    overflow: hidden;
-  }
+        /* ── Stat cards ── */
+        .stat-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 20px;
+            padding: 28px 24px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .stat-card:hover {
+            border-color: rgba(56,189,248,0.25);
+            background: rgba(56,189,248,0.04);
+        }
 
-  .hero-grid-bg {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(240,165,0,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(240,165,0,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
+        /* ── Tag pills ── */
+        .skill-tag {
+            display: inline-block;
+            padding: 5px 14px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(56,189,248,0.2);
+            color: rgba(56,189,248,0.8);
+            background: rgba(56,189,248,0.06);
+            transition: all 0.25s;
+        }
+        .skill-tag:hover {
+            border-color: rgba(56,189,248,0.5);
+            background: rgba(56,189,248,0.12);
+            color: #38bdf8;
+        }
 
-  .hero-glow {
-    position: absolute;
-    top: 20%; left: 10%;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(240,165,0,0.07) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-glow2 {
-    position: absolute;
-    bottom: 10%; right: 5%;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(255,107,53,0.05) 0%, transparent 70%);
-    pointer-events: none;
-  }
+        /* ── Process steps ── */
+        .process-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 24px;
+            padding: 36px 32px;
+            transition: all 0.35s;
+            position: relative;
+            overflow: hidden;
+        }
+        .process-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            transform: scaleX(0); transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        .process-card:hover::before { transform: scaleX(1); }
+        .process-card:hover {
+            border-color: rgba(56,189,248,0.2);
+            background: rgba(255,255,255,0.04);
+            transform: translateY(-4px);
+        }
 
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(240,165,0,0.1);
-    border: 1px solid rgba(240,165,0,0.25);
-    border-radius: 100px;
-    padding: 0.35rem 1rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--accent);
-    margin-bottom: 1.5rem;
-    width: fit-content;
-    animation: fadeUp 0.6s ease both;
-  }
-  .hero-badge::before {
-    content: '';
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    animation: pulse 2s infinite;
-  }
+        /* ── Tool grid ── */
+        .tool-chip {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 18px 14px;
+            text-align: center;
+            font-size: 13px; font-weight: 600;
+            color: #94a3b8;
+            transition: all 0.3s;
+        }
+        .tool-chip:hover {
+            border-color: rgba(56,189,248,0.3);
+            color: #38bdf8;
+            background: rgba(56,189,248,0.06);
+        }
 
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.8); }
-  }
+        /* ── Scroll reveal ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
 
-  .hero-headline {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: clamp(2.8rem, 7vw, 6rem);
-    line-height: 1.0;
-    letter-spacing: -0.03em;
-    margin-bottom: 0.5rem;
-    animation: fadeUp 0.6s 0.1s ease both;
-    position: relative;
-    z-index: 1;
-  }
-  .hero-headline .accent { color: var(--accent); }
-  .hero-headline .outline {
-    -webkit-text-stroke: 1px rgba(240,165,0,0.5);
-    color: transparent;
-  }
-
-  .hero-sub {
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    color: var(--muted);
-    max-width: 640px;
-    margin: 1.25rem 0 2.5rem;
-    font-weight: 300;
-    animation: fadeUp 0.6s 0.2s ease both;
-    position: relative; z-index: 1;
-  }
-
-  .hero-stats {
-    display: flex;
-    gap: 2.5rem;
-    margin-bottom: 2.5rem;
-    animation: fadeUp 0.6s 0.3s ease both;
-    position: relative; z-index: 1;
-  }
-  .stat-item { display: flex; flex-direction: column; }
-  .stat-num {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 2rem;
-    color: var(--accent);
-    line-height: 1;
-  }
-  .stat-label {
-    font-size: 0.8rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 1rem;
-    animation: fadeUp 0.6s 0.4s ease both;
-    position: relative; z-index: 1;
-  }
-
-  .btn-primary {
-    background: var(--accent);
-    color: #000;
-    padding: 0.875rem 2rem;
-    border-radius: 6px;
-    font-weight: 600;
-    text-decoration: none;
-    font-size: 0.95rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.2s;
-    letter-spacing: 0.01em;
-  }
-  .btn-primary:hover {
-    background: #ffc234;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(240,165,0,0.35);
-  }
-  .btn-secondary {
-    background: transparent;
-    color: var(--text);
-    padding: 0.875rem 2rem;
-    border-radius: 6px;
-    font-weight: 500;
-    text-decoration: none;
-    font-size: 0.95rem;
-    border: 1px solid var(--border);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.2s;
-  }
-  .btn-secondary:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    transform: translateY(-2px);
-  }
-
-  .hero-scroll {
-    position: absolute;
-    bottom: 2rem; left: 5%;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: var(--muted);
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    animation: fadeUp 0.6s 0.6s ease both;
-  }
-  .scroll-line {
-    width: 40px; height: 1px;
-    background: linear-gradient(90deg, var(--accent), transparent);
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ── SECTIONS ── */
-  section { padding: 6rem 5%; position: relative; z-index: 1; }
-
-  .section-label {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-  .section-label::before {
-    content: '';
-    width: 30px; height: 1px;
-    background: var(--accent);
-  }
-
-  .section-title {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-  }
-
-  /* ── ABOUT ── */
-  #about { background: var(--bg2); }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-    margin-top: 3rem;
-  }
-
-  .about-text p {
-    color: var(--muted);
-    margin-bottom: 1.25rem;
-    font-size: 1.05rem;
-    font-weight: 300;
-  }
-  .about-text p strong { color: var(--text); font-weight: 500; }
-  .about-text p .hl { color: var(--accent); font-weight: 500; }
-
-  .about-right { display: flex; flex-direction: column; gap: 1.25rem; }
-
-  .about-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.5rem;
-    display: flex;
-    gap: 1.25rem;
-    align-items: flex-start;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .about-card:hover {
-    border-color: rgba(240,165,0,0.3);
-    transform: translateX(4px);
-  }
-  .card-icon {
-    font-size: 1.75rem;
-    width: 48px;
-    flex-shrink: 0;
-  }
-  .card-body h4 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 0.35rem;
-  }
-  .card-body p {
-    font-size: 0.875rem;
-    color: var(--muted);
-    font-weight: 300;
-  }
-
-  /* ── WORK ── */
-  #work { background: var(--bg); }
-
-  .timeline { margin-top: 3.5rem; position: relative; }
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 20px; top: 0; bottom: 0;
-    width: 1px;
-    background: linear-gradient(180deg, var(--accent), transparent);
-  }
-
-  .timeline-item {
-    padding-left: 60px;
-    margin-bottom: 3.5rem;
-    position: relative;
-  }
-  .timeline-dot {
-    position: absolute;
-    left: 12px; top: 6px;
-    width: 17px; height: 17px;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 2px solid var(--accent);
-    z-index: 1;
-  }
-  .timeline-dot::after {
-    content: '';
-    position: absolute;
-    inset: 3px;
-    border-radius: 50%;
-    background: var(--accent);
-  }
-
-  .job-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 2rem;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .job-card:hover {
-    border-color: rgba(240,165,0,0.3);
-    box-shadow: 0 0 40px rgba(240,165,0,0.05);
-  }
-
-  .job-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  .job-title {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 1.2rem;
-  }
-  .job-company {
-    color: var(--accent);
-    font-weight: 600;
-    font-size: 1rem;
-    margin-top: 0.1rem;
-  }
-  .job-date {
-    background: rgba(240,165,0,0.1);
-    border: 1px solid rgba(240,165,0,0.2);
-    color: var(--accent);
-    padding: 0.3rem 0.85rem;
-    border-radius: 100px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    white-space: nowrap;
-  }
-
-  .job-bullets {
-    list-style: none;
-    margin-top: 1rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.6rem;
-  }
-  .job-bullets li {
-    font-size: 0.875rem;
-    color: var(--muted);
-    display: flex;
-    gap: 0.5rem;
-    align-items: flex-start;
-    font-weight: 300;
-  }
-  .job-bullets li::before {
-    content: '→';
-    color: var(--accent);
-    flex-shrink: 0;
-    font-size: 0.8rem;
-    margin-top: 0.15rem;
-  }
-
-  /* ── SKILLS ── */
-  #skills { background: var(--bg2); }
-
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 3rem;
-  }
-
-  .skill-group {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.75rem;
-    transition: border-color 0.2s;
-  }
-  .skill-group:hover { border-color: rgba(240,165,0,0.3); }
-
-  .skill-group-title {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--accent);
-    margin-bottom: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .skill-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  .skill-tag {
-    background: var(--faint);
-    color: var(--text);
-    border: 1px solid var(--border);
-    padding: 0.3rem 0.75rem;
-    border-radius: 6px;
-    font-size: 0.825rem;
-    font-weight: 400;
-    transition: all 0.2s;
-  }
-  .skill-tag:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: rgba(240,165,0,0.08);
-  }
-
-  .ai-highlight {
-    grid-column: span 3;
-    background: linear-gradient(135deg, rgba(240,165,0,0.08), rgba(255,107,53,0.04));
-    border: 1px solid rgba(240,165,0,0.2);
-    border-radius: 14px;
-    padding: 2rem;
-  }
-  .ai-highlight h3 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 1.15rem;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .ai-highlight ul {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-    list-style: none;
-  }
-  .ai-highlight li {
-    font-size: 0.875rem;
-    color: var(--muted);
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-    font-weight: 300;
-  }
-  .ai-highlight li::before { content: '🤖'; font-size: 0.75rem; margin-top: 0.2rem; }
-
-  /* ── BLOG ── */
-  #blogs { background: var(--bg); }
-
-  .blog-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 3rem;
-  }
-
-  .blog-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.25s;
-  }
-  .blog-card:hover {
-    border-color: rgba(240,165,0,0.3);
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-  }
-
-  .blog-thumb {
-    height: 160px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    position: relative;
-  }
-  .blog-thumb-1 { background: linear-gradient(135deg, #0d1f2d, #1a3040); }
-  .blog-thumb-2 { background: linear-gradient(135deg, #1a0d0d, #2d1818); }
-  .blog-thumb-3 { background: linear-gradient(135deg, #0d1a0d, #1a2d1a); }
-
-  .blog-content { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
-  .blog-tag {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.6rem;
-  }
-  .blog-card h3 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 1.05rem;
-    line-height: 1.3;
-    margin-bottom: 0.75rem;
-  }
-  .blog-card p {
-    font-size: 0.85rem;
-    color: var(--muted);
-    font-weight: 300;
-    flex: 1;
-  }
-  .blog-read {
-    margin-top: 1.25rem;
-    font-size: 0.8rem;
-    color: var(--accent);
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
-  /* ── CONTACT ── */
-  #contact {
-    background: var(--bg2);
-    text-align: center;
-  }
-
-  .contact-inner {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  .contact-inner .section-label { justify-content: center; }
-  .contact-inner .section-label::before { display: none; }
-
-  .contact-desc {
-    color: var(--muted);
-    font-size: 1.05rem;
-    font-weight: 300;
-    margin: 1.25rem 0 3rem;
-  }
-
-  .contact-links {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 3rem;
-  }
-
-  .contact-link {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1rem 1.5rem;
-    text-decoration: none;
-    color: var(--text);
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.2s;
-    min-width: 180px;
-    justify-content: center;
-  }
-  .contact-link:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: rgba(240,165,0,0.05);
-    transform: translateY(-2px);
-  }
-  .contact-link .icon { font-size: 1.2rem; }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--bg);
-    border-top: 1px solid var(--border);
-    padding: 2rem 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--muted);
-    font-size: 0.85rem;
-  }
-  footer a { color: var(--accent); text-decoration: none; }
-
-  /* ── SCROLL ANIMATIONS ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .skills-grid { grid-template-columns: 1fr 1fr; }
-    .ai-highlight { grid-column: span 2; }
-    .ai-highlight ul { grid-template-columns: 1fr 1fr; }
-    .blog-grid { grid-template-columns: 1fr; }
-    .nav-links { display: none; }
-    .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
-    .job-bullets { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 600px) {
-    .skills-grid { grid-template-columns: 1fr; }
-    .ai-highlight { grid-column: span 1; }
-    .ai-highlight ul { grid-template-columns: 1fr; }
-    .hero-actions { flex-direction: column; }
-    .contact-links { flex-direction: column; align-items: stretch; }
-    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
-  }
-</style>
+        /* ── Floating orbs ── */
+        .orb {
+            position: absolute; border-radius: 50%;
+            pointer-events: none; z-index: 0;
+            animation: glow-pulse 4s ease-in-out infinite;
+        }
+    </style>
 </head>
 <body>
+    <div class="glow-bg"></div>
 
-<!-- ── NAV ── -->
-<nav>
-  <a href="#home" class="nav-logo">Ritesh<span>.</span></a>
-  <ul class="nav-links">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#blogs">Blog</a></li>
-    <li><a href="#contact" class="nav-cta">Hire Me</a></li>
-  </ul>
-</nav>
-
-<!-- ── HERO ── -->
-<section id="home">
-  <div class="hero-grid-bg"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-glow2"></div>
-
-  <div class="hero-badge">🟢 Available for QA Leadership Roles</div>
-
-  <h1 class="hero-headline">
-    Ritesh<br/>
-    <span class="outline">Solanki</span>
-  </h1>
-
-  <p class="hero-sub">
-    Quality Engineering Leader — I build QA from <strong style="color:var(--text)">0→1</strong> for mobile startups &amp; web products. 
-    Turning chaos into process, and bugs into zero.
-  </p>
-
-  <div class="hero-stats">
-    <div class="stat-item">
-      <span class="stat-num">15+</span>
-      <span class="stat-label">Years Experience</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">&lt;1%</span>
-      <span class="stat-label">Prod Defect Leakage</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">50M+</span>
-      <span class="stat-label">Users Served</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">35%</span>
-      <span class="stat-label">Defect Reduction</span>
-    </div>
-  </div>
-
-  <div class="hero-actions">
-    <a href="#work" class="btn-primary">View My Work →</a>
-    <a href="#contact" class="btn-secondary">Let's Talk</a>
-  </div>
-
-  <div class="hero-scroll">
-    <div class="scroll-line"></div>
-    Scroll to explore
-  </div>
-</section>
-
-<!-- ── ABOUT ── -->
-<section id="about">
-  <div class="section-label">About Me</div>
-  <h2 class="section-title">QA is a System,<br/>Not Just Testing</h2>
-
-  <div class="about-grid">
-    <div class="about-text reveal">
-      <p>
-        Hi, I'm <strong>Ritesh Solanki</strong> — a <span class="hl">Quality Engineering Leader</span> with 15+ years of experience building and scaling QA practices across Mobile, Web, and API platforms.
-      </p>
-      <p>
-        I've led quality initiatives for <strong>Truecaller</strong> (50M+ monthly active users) and <strong>Sixer by Dream Sports Group</strong>, consistently maintaining <span class="hl">less than 1% production defect leakage</span> — even at a pace of weekly releases.
-      </p>
-      <p>
-        My approach to QA goes beyond finding bugs. I focus on <strong>building systems</strong> — from establishing end-to-end QA processes and defect tracking pipelines, to mentoring high-performing teams and aligning quality goals with business outcomes.
-      </p>
-      <p>
-        I've built QA teams from the ground up <strong>(15+ engineers)</strong>, reduced defect leakage by 35%, and improved release cycles by 20%. I'm deeply passionate about the intersection of <span class="hl">AI and Quality Engineering</span> — leveraging GenAI tools to accelerate test case generation, automate documentation, and improve regression planning — boosting test design productivity by nearly <strong>40%</strong>.
-      </p>
-    </div>
-
-    <div class="about-right">
-      <div class="about-card reveal">
-        <div class="card-icon">🏗️</div>
-        <div class="card-body">
-          <h4>Built QA from Scratch</h4>
-          <p>Established complete QA processes for mobile startups, architecting defect tracking systems and agile practices from zero.</p>
+    <!-- ═══ NAV ═══ -->
+    <nav class="fixed w-full z-50 top-0 px-6 py-6" style="backdrop-filter:blur(0px);">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-extrabold tracking-tighter">RITESH<span class="text-sky-400">.</span></div>
+            <div class="hidden md:flex space-x-10 text-xs uppercase tracking-widest font-semibold text-slate-400 items-center">
+                <a href="#about"      class="nav-link">Philosophy</a>
+                <a href="#expertise"  class="nav-link">Expertise</a>
+                <a href="#experience" class="nav-link">Journey</a>
+                <a href="#process"    class="nav-link">Process</a>
+                <a href="#tools"      class="nav-link">Tools</a>
+                <a href="mailto:riteshsolanki000@gmail.com"
+                   class="text-sky-400 border border-sky-400/30 px-5 py-2 rounded-full hover:bg-sky-400 hover:text-black transition duration-300 font-bold">
+                   Hire Me
+                </a>
+            </div>
+            <!-- Mobile menu btn -->
+            <button id="mob-btn" class="md:hidden text-slate-400 hover:text-white transition">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6"  x2="21" y2="6"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
         </div>
-      </div>
-      <div class="about-card reveal" style="transition-delay:0.1s">
-        <div class="card-icon">📱</div>
-        <div class="card-body">
-          <h4>Mobile & Web Specialist</h4>
-          <p>Expert in Android & iOS testing across n to n-4 OS versions, plus full-stack web and API validation workflows.</p>
+        <!-- Mobile dropdown -->
+        <div id="mob-menu" class="hidden md:hidden mt-4 mx-4 rounded-2xl glass-card p-6 flex flex-col gap-4 text-sm font-semibold text-slate-300">
+            <a href="#about"      class="hover:text-sky-400 transition">Philosophy</a>
+            <a href="#expertise"  class="hover:text-sky-400 transition">Expertise</a>
+            <a href="#experience" class="hover:text-sky-400 transition">Journey</a>
+            <a href="#process"    class="hover:text-sky-400 transition">Process</a>
+            <a href="#tools"      class="hover:text-sky-400 transition">Tools</a>
+            <a href="mailto:riteshsolanki000@gmail.com" class="text-sky-400 font-bold">→ Hire Me</a>
         </div>
-      </div>
-      <div class="about-card reveal" style="transition-delay:0.2s">
-        <div class="card-icon">🤖</div>
-        <div class="card-body">
-          <h4>AI-Augmented QA</h4>
-          <p>Leveraging GenAI for test case generation, edge-case discovery, and release documentation — boosting productivity by ~40%.</p>
+    </nav>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="min-h-screen flex flex-col justify-center items-center px-6 text-center relative overflow-hidden pt-24">
+        <!-- background orbs -->
+        <div class="orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(56,189,248,0.06),transparent 70%);top:-100px;left:50%;transform:translateX(-50%);"></div>
+        <div class="orb" style="width:300px;height:300px;background:radial-gradient(circle,rgba(129,140,248,0.05),transparent 70%);bottom:10%;right:10%;animation-delay:2s;"></div>
+
+        <div class="anim-1 inline-block px-4 py-1.5 mb-6 rounded-full border border-white/10 bg-white/5 text-[10px] uppercase tracking-[0.2em] text-sky-400 font-bold flex items-center gap-2 w-fit mx-auto">
+            <span style="width:6px;height:6px;border-radius:50%;background:#38bdf8;display:inline-block;animation:pulse-dot 2s infinite;"></span>
+            15 Years of QA Engineering Excellence
         </div>
-      </div>
-      <div class="about-card reveal" style="transition-delay:0.3s">
-        <div class="card-icon">🎯</div>
-        <div class="card-body">
-          <h4>Startup DNA</h4>
-          <p>Proven track record at high-growth products with weekly release cadences and aggressive quality targets under real business pressure.</p>
+
+        <h1 class="anim-2 text-5xl sm:text-6xl md:text-8xl font-extrabold mb-6 tracking-tighter leading-[0.95] max-w-5xl">
+            I Build Quality<br>
+            <span class="gradient-text">From Scratch.</span>
+        </h1>
+
+        <p class="anim-3 text-lg md:text-xl text-slate-400 max-w-2xl font-light leading-relaxed mb-4">
+            Leading QA for <strong class="text-white font-semibold">mobile-first startups</strong> and <strong class="text-white font-semibold">complex web ecosystems.</strong>
+            I turn chaotic release cycles into high-velocity, defect-free deployment pipelines.
+        </p>
+
+        <div class="anim-3 flex flex-wrap gap-3 justify-center mb-10 text-xs text-slate-400 font-medium">
+            <span class="px-3 py-1 rounded-full border border-white/10 bg-white/[0.03]">📱 Mobile QA</span>
+            <span class="px-3 py-1 rounded-full border border-white/10 bg-white/[0.03]">🌐 Web Testing</span>
+            <span class="px-3 py-1 rounded-full border border-white/10 bg-white/[0.03]">⚙️ QA From Zero</span>
+            <span class="px-3 py-1 rounded-full border border-white/10 bg-white/[0.03]">🚀 Release Governance</span>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ── WORK ── -->
-<section id="work">
-  <div class="section-label">Work History</div>
-  <h2 class="section-title">15 Years of<br/>Shipping Quality</h2>
-
-  <div class="timeline">
-
-    <!-- Sixer -->
-    <div class="timeline-item reveal">
-      <div class="timeline-dot"></div>
-      <div class="job-card">
-        <div class="job-header">
-          <div>
-            <div class="job-title">Lead QA Engineer</div>
-            <div class="job-company">🏏 Sixer — Dream Sports Group</div>
-          </div>
-          <span class="job-date">Feb 2025 – Present</span>
+        <div class="anim-4 flex flex-col sm:flex-row gap-4 items-center">
+            <a href="#expertise"
+               class="bg-white text-black px-10 py-4 rounded-full font-bold hover:bg-sky-400 transition duration-300 transform hover:scale-105 inline-block text-sm tracking-wide">
+               Explore My Work
+            </a>
+            <a href="mailto:riteshsolanki000@gmail.com"
+               class="border border-white/20 text-white px-10 py-4 rounded-full font-semibold hover:border-sky-400/50 hover:text-sky-400 transition duration-300 text-sm tracking-wide">
+               Get In Touch
+            </a>
         </div>
-        <ul class="job-bullets">
-          <li>Built end-to-end QA from the ground up with a custom defect tracking system on Notion</li>
-          <li>Delivered 14 production releases (6 major launches) with &lt;1% defect leakage</li>
-          <li>Validated data accuracy at scale via SQL — transactions, rewards &amp; financial flows</li>
-          <li>API ↔ DB consistency validation ensuring true end-to-end reliability</li>
-          <li>Leveraged Postman, Mixpanel &amp; Hasura for API testing &amp; production monitoring</li>
-          <li>Integrated AI tools to accelerate test case creation &amp; documentation workflows</li>
-          <li>Mentored QA engineers, boosting sprint quality metrics consistently</li>
-          <li>Partnered with Product, Engineering &amp; Analytics across the full SDLC</li>
-        </ul>
-      </div>
-    </div>
 
-    <!-- SDET -->
-    <div class="timeline-item reveal">
-      <div class="timeline-dot"></div>
-      <div class="job-card">
-        <div class="job-header">
-          <div>
-            <div class="job-title">Manager, Quality Engineering</div>
-            <div class="job-company">⚡ SDET Technologies</div>
-          </div>
-          <span class="job-date">Sep 2022 – Feb 2025</span>
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600 text-[10px] uppercase tracking-widest font-semibold">
+            <span>Scroll</span>
+            <div style="width:1px;height:40px;background:linear-gradient(to bottom,rgba(56,189,248,0.6),transparent);"></div>
         </div>
-        <ul class="job-bullets">
-          <li>Built and scaled QA team from scratch to 15+ engineers</li>
-          <li>Reduced defect leakage by 35% and improved release cycle by 20%</li>
-          <li>Established SDET as the primary QA vendor for key client accounts</li>
-          <li>Owned test strategy, estimation &amp; delivery planning across projects</li>
-          <li>Led agile execution — stand-ups, retrospectives &amp; cross-team collaboration</li>
-          <li>Conducted monthly quality reviews aligned to business goals</li>
-        </ul>
-      </div>
-    </div>
+    </section>
 
-    <!-- Truecaller -->
-    <div class="timeline-item reveal">
-      <div class="timeline-dot"></div>
-      <div class="job-card">
-        <div class="job-header">
-          <div>
-            <div class="job-title">Team Lead, QA (via Qualitest)</div>
-            <div class="job-company">📱 Truecaller</div>
-          </div>
-          <span class="job-date">May 2018 – Sep 2022</span>
+    <!-- ═══ MARQUEE STRIP ═══ -->
+    <div class="border-y border-white/[0.05] py-4 overflow-hidden bg-white/[0.01]">
+        <div class="marquee-track">
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#38bdf8">✦</span> Mobile QA</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#818cf8">✦</span> Web Testing</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#c084fc">✦</span> QA Process Setup</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#38bdf8">✦</span> Agile & Scrum</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#818cf8">✦</span> Android & iOS</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#c084fc">✦</span> Release Governance</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#38bdf8">✦</span> Risk-Based Testing</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#818cf8">✦</span> Team Leadership</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#c084fc">✦</span> Fantasy Sports</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#38bdf8">✦</span> E-Commerce</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#818cf8">✦</span> Fintech & Banking</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#c084fc">✦</span> AI-Driven QA</span>
+            <!-- duplicate for loop -->
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#38bdf8">✦</span> Mobile QA</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#818cf8">✦</span> Web Testing</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#c084fc">✦</span> QA Process Setup</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#38bdf8">✦</span> Agile & Scrum</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#818cf8">✦</span> Android & iOS</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#c084fc">✦</span> Release Governance</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#38bdf8">✦</span> Risk-Based Testing</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#818cf8">✦</span> Team Leadership</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#c084fc">✦</span> Fantasy Sports</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#38bdf8">✦</span> E-Commerce</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#818cf8">✦</span> Fintech & Banking</span>
+            <span class="text-slate-500 text-xs font-semibold uppercase tracking-widest whitespace-nowrap flex items-center gap-3"><span style="color:#c084fc">✦</span> AI-Driven QA</span>
         </div>
-        <ul class="job-bullets">
-          <li>Led 13-engineer QA team for a 50M+ MAU global mobile app</li>
-          <li>Maintained weekly release cadence across Android &amp; iOS ecosystems</li>
-          <li>Managed device coverage across n to n-4 major OS versions</li>
-          <li>Drove weekly bug triage with stakeholders for critical issue resolution</li>
-          <li>Defined QA strategies, test plans &amp; execution frameworks</li>
-          <li>Won "WOW Award" for logging high-severity production bugs</li>
-        </ul>
-      </div>
     </div>
 
-    <!-- QA InfoTech -->
-    <div class="timeline-item reveal">
-      <div class="timeline-dot"></div>
-      <div class="job-card">
-        <div class="job-header">
-          <div>
-            <div class="job-title">Sr. Software Engineer → Software Engineer</div>
-            <div class="job-company">🧩 QA InfoTech</div>
-          </div>
-          <span class="job-date">Apr 2009 – Sep 2018</span>
+    <!-- ═══ ABOUT / PHILOSOPHY ═══ -->
+    <section id="about" class="py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <h2 class="text-xs uppercase tracking-[0.3em] text-sky-500 font-bold mb-4">The Philosophy</h2>
+                    <p class="text-3xl md:text-4xl font-bold leading-tight mb-6">
+                        Quality isn't a checkbox — it's a<br>
+                        <span class="gradient-text">strategic business advantage.</span>
+                    </p>
+                    <p class="text-slate-400 leading-relaxed text-lg font-light">
+                        I specialize in establishing foundational QA processes, architecting specialized defect tracking systems, and streamlining Agile practices via modern toolchains. My track record includes managing large-scale crowd-sourcing events with <strong class="text-white">100+ participants</strong> and delivering high-impact app releases with <strong class="text-white">&lt;1% production defects.</strong>
+                    </p>
+                </div>
+                <!-- Stats grid -->
+                <div class="reveal grid grid-cols-2 gap-4">
+                    <div class="stat-card">
+                        <div class="text-4xl font-extrabold gradient-text mb-2">15+</div>
+                        <div class="text-slate-400 text-sm font-medium">Years in QA Engineering</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="text-4xl font-extrabold gradient-text mb-2">&lt;1%</div>
+                        <div class="text-slate-400 text-sm font-medium">Production Defect Rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="text-4xl font-extrabold gradient-text mb-2">14+</div>
+                        <div class="text-slate-400 text-sm font-medium">App Releases Delivered</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="text-4xl font-extrabold gradient-text mb-2">100+</div>
+                        <div class="text-slate-400 text-sm font-medium">Crowd-sourcing Participants</div>
+                    </div>
+                    <div class="stat-card col-span-2">
+                        <div class="text-4xl font-extrabold gradient-text mb-2">4</div>
+                        <div class="text-slate-400 text-sm font-medium">Industries: E-Commerce · Fintech · Fantasy Sports · E-Learning</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <ul class="job-bullets">
-          <li>Designed robust test plans for large-scale product features</li>
-          <li>Executed E2E, Regression, Integration &amp; CI/CD validation testing</li>
-          <li>Reduced regression cycles by 30% through structured test case reuse</li>
-          <li>Owned defect lifecycle management via JIRA</li>
-          <li>Ran Selenium WebDriver regression across Chrome &amp; Firefox</li>
-          <li>Mentored junior engineers on test design &amp; QA best practices</li>
-        </ul>
-      </div>
-    </div>
+    </section>
 
-  </div>
-</section>
+    <!-- ═══ EXPERTISE ═══ -->
+    <section id="expertise" class="py-32 px-6 bg-white/[0.02]">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-16 reveal">
+                <h2 class="text-xs uppercase tracking-[0.3em] text-sky-500 font-bold mb-4">Core Expertise</h2>
+                <p class="text-4xl md:text-5xl font-extrabold tracking-tight">Where I create <span class="gradient-text">impact.</span></p>
+                <p class="text-slate-400 mt-4 text-lg font-light">Scalable QA solutions for mobile startups and modern web platforms.</p>
+            </div>
 
-<!-- ── SKILLS ── -->
-<section id="skills">
-  <div class="section-label">Skills</div>
-  <h2 class="section-title">Full-Stack QA<br/>Capability</h2>
+            <div class="grid md:grid-cols-3 gap-6">
 
-  <div class="skills-grid">
+                <!-- Card 1 -->
+                <div class="glass-card p-10 rounded-[2rem] reveal">
+                    <div class="w-12 h-12 bg-sky-500/10 rounded-2xl flex items-center justify-center mb-8 border border-sky-500/20">
+                        <svg class="w-6 h-6 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Mobile QA Expert</h3>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">Deep expertise in Android & iOS testing across device matrices, OS versions (n to n-4), and real-world usage conditions.</p>
+                    <ul class="text-sm text-slate-400 space-y-2.5">
+                        <li class="flex gap-2"><span class="text-sky-400 mt-0.5">→</span> Advanced Android & iOS validation</li>
+                        <li class="flex gap-2"><span class="text-sky-400 mt-0.5">→</span> Risk-based testing strategies</li>
+                        <li class="flex gap-2"><span class="text-sky-400 mt-0.5">→</span> Analytics QA via Mixpanel & Hasura</li>
+                        <li class="flex gap-2"><span class="text-sky-400 mt-0.5">→</span> Weekly release cadence management</li>
+                    </ul>
+                </div>
 
-    <div class="skill-group reveal">
-      <div class="skill-group-title">🎯 Leadership</div>
-      <div class="skill-tags">
-        <span class="skill-tag">QA from 0→1</span>
-        <span class="skill-tag">Team Building</span>
-        <span class="skill-tag">Test Strategy</span>
-        <span class="skill-tag">Release Management</span>
-        <span class="skill-tag">Risk-Based Testing</span>
-        <span class="skill-tag">Mentorship</span>
-        <span class="skill-tag">Agile / Scrum</span>
-      </div>
-    </div>
+                <!-- Card 2 -->
+                <div class="glass-card p-10 rounded-[2rem] reveal">
+                    <div class="w-12 h-12 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-8 border border-purple-500/20">
+                        <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">QA Process Architect</h3>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">I build QA functions from zero — toolchain, standards, defect taxonomy, team culture. Not consulting. Hands-on execution.</p>
+                    <ul class="text-sm text-slate-400 space-y-2.5">
+                        <li class="flex gap-2"><span class="text-purple-400 mt-0.5">→</span> Zero-to-one QA toolchain setup</li>
+                        <li class="flex gap-2"><span class="text-purple-400 mt-0.5">→</span> Agile / Scrum standardization</li>
+                        <li class="flex gap-2"><span class="text-purple-400 mt-0.5">→</span> Sprint & release governance</li>
+                        <li class="flex gap-2"><span class="text-purple-400 mt-0.5">→</span> Custom defect tracking architecture</li>
+                    </ul>
+                </div>
 
-    <div class="skill-group reveal" style="transition-delay:0.1s">
-      <div class="skill-group-title">📱 Testing</div>
-      <div class="skill-tags">
-        <span class="skill-tag">Mobile (Android &amp; iOS)</span>
-        <span class="skill-tag">Web Applications</span>
-        <span class="skill-tag">API Testing</span>
-        <span class="skill-tag">E2E Testing</span>
-        <span class="skill-tag">Regression</span>
-        <span class="skill-tag">Integration Testing</span>
-        <span class="skill-tag">CI/CD Validation</span>
-      </div>
-    </div>
+                <!-- Card 3 -->
+                <div class="glass-card p-10 rounded-[2rem] reveal">
+                    <div class="w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-8 border border-indigo-500/20">
+                        <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Strategic Leadership</h3>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">Leading teams of 13+ engineers while staying hands-on. I build QA teams that are self-directed, high-output, and zero-drama.</p>
+                    <ul class="text-sm text-slate-400 space-y-2.5">
+                        <li class="flex gap-2"><span class="text-indigo-400 mt-0.5">→</span> Team building & mentoring</li>
+                        <li class="flex gap-2"><span class="text-indigo-400 mt-0.5">→</span> Stakeholder bug triage</li>
+                        <li class="flex gap-2"><span class="text-indigo-400 mt-0.5">→</span> AI-driven QA expansion</li>
+                        <li class="flex gap-2"><span class="text-indigo-400 mt-0.5">→</span> QA roadmaps & estimates</li>
+                    </ul>
+                </div>
 
-    <div class="skill-group reveal" style="transition-delay:0.2s">
-      <div class="skill-group-title">🛠 Tools</div>
-      <div class="skill-tags">
-        <span class="skill-tag">Postman</span>
-        <span class="skill-tag">JIRA</span>
-        <span class="skill-tag">Notion</span>
-        <span class="skill-tag">Mixpanel</span>
-        <span class="skill-tag">Hasura</span>
-        <span class="skill-tag">Jenkins</span>
-        <span class="skill-tag">Selenium</span>
-      </div>
-    </div>
+                <!-- Card 4 -->
+                <div class="glass-card p-10 rounded-[2rem] reveal">
+                    <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-8 border border-emerald-500/20">
+                        <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Web & API Testing</h3>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">End-to-end coverage for complex web platforms — browser compatibility, API validation, and pre/post-deployment testing in CI/CD pipelines.</p>
+                    <ul class="text-sm text-slate-400 space-y-2.5">
+                        <li class="flex gap-2"><span class="text-emerald-400 mt-0.5">→</span> E2E & regression testing</li>
+                        <li class="flex gap-2"><span class="text-emerald-400 mt-0.5">→</span> API testing via Postman</li>
+                        <li class="flex gap-2"><span class="text-emerald-400 mt-0.5">→</span> CI/CD integration (Jenkins)</li>
+                        <li class="flex gap-2"><span class="text-emerald-400 mt-0.5">→</span> Pre/post-deployment validation</li>
+                    </ul>
+                </div>
 
-    <div class="skill-group reveal" style="transition-delay:0.3s">
-      <div class="skill-group-title">🗄️ Data & Backend</div>
-      <div class="skill-tags">
-        <span class="skill-tag">SQL</span>
-        <span class="skill-tag">API ↔ DB Validation</span>
-        <span class="skill-tag">Transaction Testing</span>
-        <span class="skill-tag">Data Accuracy</span>
-        <span class="skill-tag">Financial Flow QA</span>
-      </div>
-    </div>
+                <!-- Card 5 -->
+                <div class="glass-card p-10 rounded-[2rem] reveal">
+                    <div class="w-12 h-12 bg-rose-500/10 rounded-2xl flex items-center justify-center mb-8 border border-rose-500/20">
+                        <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Data & Analytics QA</h3>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">Validating analytics instrumentation, data pipelines, and monitoring dashboards. QA that goes beyond UI into every data touchpoint.</p>
+                    <ul class="text-sm text-slate-400 space-y-2.5">
+                        <li class="flex gap-2"><span class="text-rose-400 mt-0.5">→</span> Mixpanel event validation</li>
+                        <li class="flex gap-2"><span class="text-rose-400 mt-0.5">→</span> Hasura & MoEngage QA</li>
+                        <li class="flex gap-2"><span class="text-rose-400 mt-0.5">→</span> Datadog monitoring setup</li>
+                        <li class="flex gap-2"><span class="text-rose-400 mt-0.5">→</span> Production metrics tracking</li>
+                    </ul>
+                </div>
 
-    <div class="skill-group reveal" style="transition-delay:0.4s">
-      <div class="skill-group-title">⚙️ Process</div>
-      <div class="skill-tags">
-        <span class="skill-tag">SDLC &amp; STLC</span>
-        <span class="skill-tag">Defect Lifecycle</span>
-        <span class="skill-tag">Test Planning</span>
-        <span class="skill-tag">QA Estimation</span>
-        <span class="skill-tag">Automation Strategy</span>
-      </div>
-    </div>
+                <!-- Card 6 -->
+                <div class="glass-card p-10 rounded-[2rem] reveal">
+                    <div class="w-12 h-12 bg-amber-500/10 rounded-2xl flex items-center justify-center mb-8 border border-amber-500/20">
+                        <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Release Engineering</h3>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">From sprint kick-off to release sign-off — I own the full delivery cycle, keeping teams on schedule without sacrificing quality.</p>
+                    <ul class="text-sm text-slate-400 space-y-2.5">
+                        <li class="flex gap-2"><span class="text-amber-400 mt-0.5">→</span> Sprint planning & velocity</li>
+                        <li class="flex gap-2"><span class="text-amber-400 mt-0.5">→</span> Weekly release cadence</li>
+                        <li class="flex gap-2"><span class="text-amber-400 mt-0.5">→</span> Release notes & sign-off</li>
+                        <li class="flex gap-2"><span class="text-amber-400 mt-0.5">→</span> Cross-functional coordination</li>
+                    </ul>
+                </div>
 
-    <div class="skill-group reveal" style="transition-delay:0.5s">
-      <div class="skill-group-title">🏆 Achievements</div>
-      <div class="skill-tags">
-        <span class="skill-tag">Best Mentor Award</span>
-        <span class="skill-tag">WOW Award — Truecaller</span>
-        <span class="skill-tag">3× Spot Bonus</span>
-        <span class="skill-tag">35% Defect Reduction</span>
-        <span class="skill-tag">40% Productivity Boost</span>
-      </div>
-    </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="ai-highlight reveal">
-      <h3>🤖 AI & GenAI in Quality Engineering</h3>
-      <ul>
-        <li>Intelligent test case generation &amp; edge-case identification</li>
-        <li>AI-powered API negative scenario &amp; boundary validation</li>
-        <li>Automated release notes &amp; structured QA documentation</li>
-        <li>~40% improvement in test design productivity</li>
-        <li>AI-driven risk identification for regression planning</li>
-        <li>Reducing manual effort through workflow automation</li>
-      </ul>
-    </div>
+    <!-- ═══ EXPERIENCE ═══ -->
+    <section id="experience" class="py-32 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-16 reveal">
+                <h2 class="text-xs uppercase tracking-[0.3em] text-sky-500 font-bold mb-4">The Journey</h2>
+                <p class="text-4xl md:text-5xl font-extrabold tracking-tight">Where I've built <span class="gradient-text">quality.</span></p>
+            </div>
 
-  </div>
-</section>
+            <div class="space-y-16">
 
-<!-- ── BLOG ── -->
-<section id="blogs">
-  <div class="section-label">Blog</div>
-  <h2 class="section-title">Thoughts on<br/>Quality Engineering</h2>
+                <!-- Sixer -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-dot" style="box-shadow:0 0 16px rgba(56,189,248,1);"></div>
+                    <div class="inline-block px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-[10px] uppercase tracking-widest font-bold mb-3">Current Role</div>
+                    <h3 class="timeline-title text-2xl md:text-3xl font-bold mb-1 transition duration-300">Lead QA Engineer</h3>
+                    <p class="text-sky-400 font-semibold text-sm mb-5">Sixer · Dream Sports Group · Fantasy Sports Platform</p>
+                    <p class="text-slate-400 leading-relaxed mb-6">Joined as the founding QA voice for Sixer, a high-velocity fantasy sports app under Dream Sports. Built the entire QA function from a blank canvas — process, tooling, culture, and delivery governance.</p>
+                    <ul class="space-y-3 text-sm text-slate-400 mb-6">
+                        <li class="flex gap-3"><span class="text-sky-400 font-bold mt-0.5">✓</span> Established E2E QA processes & architected a <strong class="text-white">specialized defect tracking system</strong> in Notion</li>
+                        <li class="flex gap-3"><span class="text-sky-400 font-bold mt-0.5">✓</span> Implemented <strong class="text-white">risk-based testing</strong> with advanced monitoring via Mixpanel & Hasura</li>
+                        <li class="flex gap-3"><span class="text-sky-400 font-bold mt-0.5">✓</span> Applied <strong class="text-white">AI-driven approaches</strong> to expand test coverage and streamline documentation</li>
+                        <li class="flex gap-3"><span class="text-sky-400 font-bold mt-0.5">✓</span> Delivered <strong class="text-white">14 app releases (6 major features)</strong> with &lt;1% production defects</li>
+                        <li class="flex gap-3"><span class="text-sky-400 font-bold mt-0.5">✓</span> Core member of <strong class="text-white">product roadmapping, sprint planning & release governance</strong></li>
+                    </ul>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag">Notion</span><span class="skill-tag">Mixpanel</span><span class="skill-tag">Hasura</span>
+                        <span class="skill-tag">Risk-Based Testing</span><span class="skill-tag">AI-Driven QA</span><span class="skill-tag">Release Mgmt</span>
+                    </div>
+                </div>
 
-  <div class="blog-grid">
-    <a href="#blogs" class="blog-card reveal">
-      <div class="blog-thumb blog-thumb-1">🏗️</div>
-      <div class="blog-content">
-        <div class="blog-tag">Process</div>
-        <h3>How to Build a QA Process from 0→1 at a Mobile Startup</h3>
-        <p>A step-by-step guide to setting up end-to-end quality engineering at a high-growth startup with no existing QA infrastructure.</p>
-        <div class="blog-read">Coming Soon →</div>
-      </div>
-    </a>
-    <a href="#blogs" class="blog-card reveal" style="transition-delay:0.1s">
-      <div class="blog-thumb blog-thumb-2">🤖</div>
-      <div class="blog-content">
-        <div class="blog-tag">AI in QA</div>
-        <h3>Boosting Test Design by 40% with GenAI — My Workflow</h3>
-        <p>How I use large language models to generate test cases, identify edge cases, and automate documentation for weekly releases.</p>
-        <div class="blog-read">Coming Soon →</div>
-      </div>
-    </a>
-    <a href="#blogs" class="blog-card reveal" style="transition-delay:0.2s">
-      <div class="blog-thumb blog-thumb-3">📱</div>
-      <div class="blog-content">
-        <div class="blog-tag">Mobile Testing</div>
-        <h3>Maintaining &lt;1% Bug Leakage at 1 Release/Week — Lessons from Truecaller</h3>
-        <p>The strategies, triage rituals, and device matrix management that kept a 50M-user app defect-free at weekly cadence.</p>
-        <div class="blog-read">Coming Soon →</div>
-      </div>
-    </a>
-  </div>
-</section>
+                <!-- SDET -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-dot" style="background:#818cf8;box-shadow:0 0 12px rgba(129,140,248,0.7);"></div>
+                    <div class="inline-block px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] uppercase tracking-widest font-bold mb-3">QE Manager</div>
+                    <h3 class="timeline-title text-2xl md:text-3xl font-bold mb-1 transition duration-300">QE Manager</h3>
+                    <p class="text-indigo-400 font-semibold text-sm mb-5">SDET Technologies · QA Consulting Firm</p>
+                    <p class="text-slate-400 leading-relaxed mb-6">Took full ownership of multiple client engagements simultaneously. Hired engineers, stood up toolchains, and built the delivery reputation that made SDET the go-to QA partner for key clients.</p>
+                    <ul class="space-y-3 text-sm text-slate-400 mb-6">
+                        <li class="flex gap-3"><span class="text-indigo-400 font-bold mt-0.5">✓</span> Built projects from scratch: <strong class="text-white">recruited teams, set up toolchains, managed logistics</strong></li>
+                        <li class="flex gap-3"><span class="text-indigo-400 font-bold mt-0.5">✓</span> Positioned SDET as the <strong class="text-white">primary QA vendor</strong> for key enterprise clients</li>
+                        <li class="flex gap-3"><span class="text-indigo-400 font-bold mt-0.5">✓</span> Created <strong class="text-white">QA estimates, Test Strategies, project schedules</strong> across all active engagements</li>
+                        <li class="flex gap-3"><span class="text-indigo-400 font-bold mt-0.5">✓</span> Conducted monthly reviews and daily stand-ups, maintaining quality benchmarks consistently</li>
+                    </ul>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag">JIRA</span><span class="skill-tag">Team Building</span><span class="skill-tag">Test Strategy</span>
+                        <span class="skill-tag">QA Estimates</span><span class="skill-tag">Client Management</span>
+                    </div>
+                </div>
 
-<!-- ── CONTACT ── -->
-<section id="contact">
-  <div class="contact-inner">
-    <div class="section-label">Contact</div>
-    <h2 class="section-title">Let's Build<br/>Quality Together</h2>
-    <p class="contact-desc">
-      Looking for someone to set up your QA process from scratch, lead a quality team, or bring strategic testing to your mobile or web product? Let's talk.
-    </p>
-    <div class="contact-links">
-      <a href="mailto:riteshsolanki000@gmail.com" class="contact-link">
-        <span class="icon">✉️</span> Email Me
-      </a>
-      <a href="https://linkedin.com/in/ritesh-solanki" target="_blank" class="contact-link">
-        <span class="icon">💼</span> LinkedIn
-      </a>
-      <a href="tel:+918860926169" class="contact-link">
-        <span class="icon">📞</span> +91-88609 26169
-      </a>
-    </div>
-    <div style="color:var(--muted);font-size:0.85rem;">📍 Noida, India — Open to remote &amp; hybrid opportunities</div>
-  </div>
-</section>
+                <!-- Truecaller -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-dot" style="background:#c084fc;box-shadow:0 0 12px rgba(192,132,252,0.7);"></div>
+                    <div class="inline-block px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-[10px] uppercase tracking-widest font-bold mb-3">Team Lead</div>
+                    <h3 class="timeline-title text-2xl md:text-3xl font-bold mb-1 transition duration-300">QA Team Lead</h3>
+                    <p class="text-purple-400 font-semibold text-sm mb-5">Truecaller · via Qualitest · Communications App</p>
+                    <p class="text-slate-400 leading-relaxed mb-6">Led a team of 13 QA engineers on one of India's most-used apps. Fast cadence, high visibility, weekly releases — with zero tolerance for regressions reaching users.</p>
+                    <ul class="space-y-3 text-sm text-slate-400 mb-6">
+                        <li class="flex gap-3"><span class="text-purple-400 font-bold mt-0.5">✓</span> Managed <strong class="text-white">13 QA engineers</strong> while staying hands-on with execution and story verification</li>
+                        <li class="flex gap-3"><span class="text-purple-400 font-bold mt-0.5">✓</span> Directed testing across <strong class="text-white">multiple Android & iOS devices</strong>, covering n to n-4 OS versions</li>
+                        <li class="flex gap-3"><span class="text-purple-400 font-bold mt-0.5">✓</span> Maintained a <strong class="text-white">weekly release cadence</strong> while keeping production quality consistently high</li>
+                        <li class="flex gap-3"><span class="text-purple-400 font-bold mt-0.5">✓</span> Facilitated <strong class="text-white">weekly bug triage</strong> with stakeholders for efficient defect prioritization</li>
+                    </ul>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag">Android</span><span class="skill-tag">iOS</span><span class="skill-tag">Bug Triage</span>
+                        <span class="skill-tag">13-Person Team</span><span class="skill-tag">Weekly Releases</span>
+                    </div>
+                </div>
 
-<!-- ── FOOTER ── -->
-<footer>
-  <span>© 2025 Ritesh Solanki · Quality Engineering Leader</span>
-  <span>Built with intent. Tested with precision.</span>
-</footer>
+                <!-- QA InfoTech -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-line" style="background:linear-gradient(to bottom,rgba(52,211,153,0.4),transparent);"></div>
+                    <div class="timeline-dot" style="background:#34d399;box-shadow:0 0 12px rgba(52,211,153,0.6);"></div>
+                    <div class="inline-block px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] uppercase tracking-widest font-bold mb-3">Senior QA</div>
+                    <h3 class="timeline-title text-2xl md:text-3xl font-bold mb-1 transition duration-300">Senior QA Engineer</h3>
+                    <p class="text-emerald-400 font-semibold text-sm mb-5">QA InfoTech · QA Services</p>
+                    <p class="text-slate-400 leading-relaxed mb-6">Where the fundamentals were forged. Deep hands-on testing, structured test design, and owning the defect lifecycle end-to-end across diverse client products.</p>
+                    <ul class="space-y-3 text-sm text-slate-400 mb-6">
+                        <li class="flex gap-3"><span class="text-emerald-400 font-bold mt-0.5">✓</span> Designed detailed <strong class="text-white">Test Plans for major product features</strong></li>
+                        <li class="flex gap-3"><span class="text-emerald-400 font-bold mt-0.5">✓</span> Executed <strong class="text-white">E2E, regression, integration & pre/post-deployment</strong> testing in CI/CD pipelines</li>
+                        <li class="flex gap-3"><span class="text-emerald-400 font-bold mt-0.5">✓</span> Owned the full <strong class="text-white">defect lifecycle</strong> in JIRA, collaborating with cross-functional teams</li>
+                        <li class="flex gap-3"><span class="text-emerald-400 font-bold mt-0.5">✓</span> Participated in requirement reviews, providing input on testability and coverage gaps</li>
+                    </ul>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag">JIRA</span><span class="skill-tag">E2E Testing</span><span class="skill-tag">CI/CD</span>
+                        <span class="skill-tag">Test Plans</span><span class="skill-tag">Regression</span>
+                    </div>
+                </div>
 
-<script>
-  // Intersection Observer for scroll reveals
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => observer.observe(el));
+            </div>
+        </div>
+    </section>
 
-  // Nav active highlight
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 120) current = s.id;
-    });
-    navLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
-    });
-  });
-</script>
+    <!-- ═══ PROCESS ═══ -->
+    <section id="process" class="py-32 px-6 bg-white/[0.02]">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-16 reveal">
+                <h2 class="text-xs uppercase tracking-[0.3em] text-sky-500 font-bold mb-4">My Approach</h2>
+                <p class="text-4xl md:text-5xl font-extrabold tracking-tight">How I build QA <span class="gradient-text">from scratch.</span></p>
+                <p class="text-slate-400 mt-4 text-lg font-light">A proven 4-step framework for turning QA chaos into confident releases.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="process-card reveal">
+                    <div class="text-5xl font-extrabold text-white/[0.04] mb-4 leading-none">01</div>
+                    <div class="w-10 h-10 bg-sky-500/10 rounded-xl flex items-center justify-center mb-4 border border-sky-500/20">
+                        <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">Audit & Align</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Understand the product, team, and risk areas. Align QA goals with business outcomes before writing a single test case.</p>
+                </div>
+                <div class="process-card reveal">
+                    <div class="text-5xl font-extrabold text-white/[0.04] mb-4 leading-none">02</div>
+                    <div class="w-10 h-10 bg-purple-500/10 rounded-xl flex items-center justify-center mb-4 border border-purple-500/20">
+                        <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">Build Foundation</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Set up JIRA, Notion, Postman. Define defect taxonomy. Create the Test Strategy and first Test Plans that the team can actually use.</p>
+                </div>
+                <div class="process-card reveal">
+                    <div class="text-5xl font-extrabold text-white/[0.04] mb-4 leading-none">03</div>
+                    <div class="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center mb-4 border border-emerald-500/20">
+                        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">Embed in Delivery</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Integrate QA into sprint ceremonies — planning, triage, release governance. Make quality a team sport, not a bottleneck.</p>
+                </div>
+                <div class="process-card reveal">
+                    <div class="text-5xl font-extrabold text-white/[0.04] mb-4 leading-none">04</div>
+                    <div class="w-10 h-10 bg-amber-500/10 rounded-xl flex items-center justify-center mb-4 border border-amber-500/20">
+                        <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">Scale & Optimise</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Hire and mentor QA engineers, introduce automation, and iterate using Datadog and production data to continuously raise the bar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ TOOLS ═══ -->
+    <section id="tools" class="py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-16 reveal">
+                <h2 class="text-xs uppercase tracking-[0.3em] text-sky-500 font-bold mb-4">Tech Stack</h2>
+                <p class="text-4xl md:text-5xl font-extrabold tracking-tight">Tools I <span class="gradient-text">master.</span></p>
+            </div>
+
+            <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 reveal">
+                <div class="tool-chip"><div class="text-[10px] text-slate-600 uppercase tracking-wide mb-1">Mgmt</div>JIRA</div>
+                <div class="tool-chip"><div class="text-[10px] text-slate-600 uppercase tracking-wide mb-1">Docs</div>Notion</div>
+                <div class="tool-chip"><div class="text-[10px] text-slate-600 uppercase tracking-wide mb-1">Mgmt</div>Asana</div>
+                <div class="tool-chip"><div class="text-[10px] text-slate-600 uppercase tracking-wide mb-1">API</div>Postman</div>
+                <div class="tool-chip"><div class="text-[10px] text-slate-600 uppercase tracking-wide mb-1">Analytics</div>Mixpanel</div>
+                <div class="tool-chip"><div class="text-[10px] text-slate-600 uppercase tracking-wide mb-1">Data</div>Hasura</div>
+                <div class="tool-chip"><div class="text-[10px] text-slate-600 uppercase tracking-wide mb-1">Monitor</div>Datadog</div>
+                <div class="tool-chip"><div class="text-[10px] text-slate-600 uppercase tracking-wide mb-1">CI/CD</div>Jenkins</div>
+                <div class="tool-chip"><div class="text-[10px] text-slate-600 uppercase tracking-wide mb-1">Engage</div>MoEngage</div>
+                <div class="tool-chip"><div class="text-[10px] text-slate-600 uppercase tracking-wide mb-1">Build</div>Builder.AI</div>
+                <div class="tool-chip"><div class="text-[10px] text-slate-600 uppercase tracking-wide mb-1">Mobile</div>Android</div>
+                <div class="tool-chip"><div class="text-[10px] text-slate-600 uppercase tracking-wide mb-1">Mobile</div>iOS</div>
+            </div>
+
+            <!-- Industries -->
+            <div class="mt-20 reveal">
+                <h3 class="text-xs uppercase tracking-[0.3em] text-sky-500 font-bold mb-8">Industries Served</h3>
+                <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="glass-card p-6 rounded-2xl">
+                        <div class="text-2xl mb-3">🏏</div>
+                        <div class="font-bold mb-1">Fantasy Sports</div>
+                        <div class="text-slate-400 text-sm">Dream Sports · Sixer</div>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl">
+                        <div class="text-2xl mb-3">🛒</div>
+                        <div class="font-bold mb-1">E-Commerce</div>
+                        <div class="text-slate-400 text-sm">Large-scale platforms</div>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl">
+                        <div class="text-2xl mb-3">🏦</div>
+                        <div class="font-bold mb-1">Banking & Fintech</div>
+                        <div class="text-slate-400 text-sm">Compliance-critical apps</div>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl">
+                        <div class="text-2xl mb-3">📚</div>
+                        <div class="font-bold mb-1">E-Learning</div>
+                        <div class="text-slate-400 text-sm">Content & LMS platforms</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER / CONTACT ═══ -->
+    <footer class="py-24 px-6 border-t border-white/[0.05]">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-xs uppercase tracking-[0.3em] text-sky-500 font-bold mb-6">Open to Opportunities</p>
+            <h2 class="text-5xl md:text-6xl font-extrabold tracking-tighter mb-4">
+                Let's build <span class="gradient-text">quality together.</span>
+            </h2>
+            <p class="text-slate-400 text-lg font-light mb-12 max-w-xl mx-auto">
+                Whether you need QA built from zero, a team lead, or a strategic partner for your next release cycle — I'm ready.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+                <a href="mailto:riteshsolanki000@gmail.com"
+                   class="bg-white text-black px-10 py-4 rounded-full font-bold hover:bg-sky-400 transition duration-300 transform hover:scale-105 inline-block text-sm tracking-wide">
+                   ✉ riteshsolanki000@gmail.com
+                </a>
+                <a href="https://linkedin.com/in/ritesh-solanki" target="_blank"
+                   class="border border-white/20 text-white px-10 py-4 rounded-full font-semibold hover:border-sky-400/50 hover:text-sky-400 transition duration-300 text-sm tracking-wide inline-block">
+                   LinkedIn →
+                </a>
+            </div>
+
+            <div class="flex justify-center gap-10 text-[10px] uppercase tracking-widest font-bold text-slate-600">
+                <span>📍 Noida, India</span>
+                <span>📞 +91 88609 26169</span>
+                <span>&copy; 2026 Ritesh Solanki</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu
+        document.getElementById('mob-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mob-menu');
+            menu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('#mob-menu a').forEach(a => {
+            a.addEventListener('click', () => document.getElementById('mob-menu').classList.add('hidden'));
+        });
+
+        // Scroll reveal
+        const revealEls = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, entry.target.dataset.delay || 0);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Stagger siblings
+        document.querySelectorAll('.grid').forEach(grid => {
+            grid.querySelectorAll('.reveal').forEach((el, i) => {
+                el.dataset.delay = i * 80;
+            });
+        });
+        revealEls.forEach(el => observer.observe(el));
+
+        // Nav blur on scroll
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(5,5,5,0.85)';
+                nav.style.backdropFilter = 'blur(16px)';
+                nav.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+            } else {
+                nav.style.background = 'transparent';
+                nav.style.backdropFilter = 'blur(0)';
+                nav.style.borderBottom = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
